@@ -3,8 +3,10 @@ import React from 'react'
 
 const loadingScreen = () => {
   return (
-    <div className='LoadingScreen'>
-        <div>"At Futur-e, we don’t just insure what you have — we protect what your future holds."</div>
+    <div className='LoadingScreen inter'>
+        <img src='/assets/black_logo_with_text_edit.png' alt='Loading screen'></img>
+        <p>Welcome to the future of client service.</p>
+        <p>Welcome to Futur-e Insurance Brokers</p>
     </div>
   )
 }

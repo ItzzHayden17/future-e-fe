@@ -7,12 +7,18 @@
     background-color: black;
     display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
     opacity: 1;
     animation: fadeOut 1s forwards;
-    animation-delay: 3s;
+    animation-delay: 5s;
     z-index: 9999;
     color: white;
+
+    p{
+        all: unset;
+        margin: 2px 0;
+    }
 }
 
 @keyframes fadeOut {
