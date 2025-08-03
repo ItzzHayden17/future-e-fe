@@ -1,0 +1,18 @@
+.TeamMember{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 20px;
+
+    img{
+        width: 180px;
+    }
+
+    h2{
+        font-size: 20px;
+        font-weight: 400;
+        margin-top: 10px;
+        text-align: center;
+    }
+}

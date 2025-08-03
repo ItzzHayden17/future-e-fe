@@ -2,12 +2,11 @@ import './Home.css'
 import React from 'react'
 import LoadingScreen from '../../components/LoadingScreen/LoadingScreen'
 import Navbar from '../../components/Navbar/Navbar'
+import ContactForm from '../../components/ContactForm/ContactForm'
 
 const Home = () => {
   return (
     <div className='Home'>
-        <LoadingScreen />
-        <Navbar />
         <div className='home-content'>
           <div className='intro inter'>Text text text,<br/>text text,<br/>text</div>
           <div className='intro-text inter'>Text text text text text text text text <br/>text text Text text text text text text</div>
