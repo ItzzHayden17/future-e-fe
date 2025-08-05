@@ -41,8 +41,10 @@ const About = () => {
             <img src='assets/facebook_icon.png'></img>
             <img src='assets/instagram_icon.png'></img>
             <img src='assets/call_icon.png'></img>
-            <img src='assets/email_icon.png'></img>
+            <img src='assets/email_icon.png' ></img>
           </div>
+
+          <div className='copyright'>2025    Futur-e</div>
     </div>
   )
 }

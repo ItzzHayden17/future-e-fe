@@ -21,3 +21,10 @@
         justify-content: center;
     }
 }
+
+@media screen and (max-width: 1024px) {
+    .Features{
+    margin-top: 20px;
+
+    }
+}

@@ -14,11 +14,14 @@ const Home = () => {
             <button className='secondary'>Read more</button>
             <button className='primary'>Contact Us</button> 
           </div>
+
+             <img src='assets/car_gear.png' alt='Banner Left' className='mobile_image'></img>
+
           <div className='socials'>
             <img src='assets/facebook_icon.png'></img>
             <img src='assets/instagram_icon.png'></img>
             <img src='assets/call_icon.png'></img>
-            <img src='assets/email_icon.png'></img>
+            <img src='assets/email_icon.png' className='email-icon'></img>
           </div>
           <div className='copyright'>2025    Futur-e</div>
         </div>

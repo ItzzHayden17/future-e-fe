@@ -6,12 +6,14 @@
     top: 0;
     left: 0;
     z-index: 1000;
+    align-items: center;
+    justify-content: center;
     img{
         width: 70px;
         height: 70px;
         margin-left: 40px;
     }
-    align-items: center;
+    
     h1{
         margin-left: 20px;
     }
@@ -19,7 +21,19 @@
     h1:hover{
         cursor: pointer;
     }
+  
+}
 
+@media screen and (max-width: 1024px) {
+  .Navbar{
+    justify-content: flex-end;
+    h1{
+        font-size: 20px;
+        justify-content: center;
+    }
 
-    
+    img{
+        margin-left: 5px;
+    }
+  }
 }

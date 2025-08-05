@@ -10,6 +10,14 @@ const Contact = () => {
        <div className='map-container'>
          <Map />
        </div>
+            <div className='socials'>
+            <img src='assets/facebook_icon.png'></img>
+            <img src='assets/instagram_icon.png'></img>
+            <img src='assets/call_icon.png'></img>
+            <img src='assets/email_icon.png' className='email-icon'></img>
+          </div>
+
+          <div className='copyright'>2025    Futur-e</div>
     </div>
   )
 }
