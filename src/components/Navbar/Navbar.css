@@ -8,6 +8,13 @@
     z-index: 1000;
     align-items: center;
     justify-content: center;
+
+    .nav-links{
+        display: flex;
+        flex-direction: row  ;
+        justify-content: center;
+        align-items: center;
+    }
     img{
         width: 70px;
         height: 70px;
@@ -26,14 +33,22 @@
 
 @media screen and (max-width: 1024px) {
   .Navbar{
-    justify-content: flex-end;
+    flex-direction: column;
+    width: 100%;
     h1{
         font-size: 20px;
         justify-content: center;
     }
 
+    .nav-links{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
     img{
-        margin-left: 5px;
+        margin: 0;
     }
   }
 }

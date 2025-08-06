@@ -11,7 +11,7 @@
     align-items: center;
     opacity: 1;
     animation: fadeOut 1s forwards;
-    animation-delay: 5s;
+    animation-delay: 3s;
     z-index: 9999;
     color: white;
 

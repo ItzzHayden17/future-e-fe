@@ -4,6 +4,7 @@
     border-radius: 20px;
     padding: 50px 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* X, Y, Blur, Color */
+    width: 25%;
 
     h1{
         margin: 10px;
@@ -15,6 +16,7 @@
         padding: 10px;
         border: solid 1px #ccc;
         border-radius: 10px;
+        margin-top: 20px;
     }
 
     select{
@@ -23,13 +25,16 @@
         padding: 10px;
         border: solid 1px #ccc;
         border-radius: 10px;
+        margin-bottom: 5px;
     }   
 
     p{
         margin: 0;
+        margin-top: 5px;
         padding: 0;
         color: red;
-        align-self: flex-start;
+        align-self: center;
+        text-align: center;
     }
     button{
         width: 100%;
@@ -58,5 +63,17 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+    }
+
+    .error-text{
+        display: none;
+    }
+
+
+}
+
+@media screen and (max-width: 1024px) {
+    .ContactForm{
+        width: 70%;
     }
 }
