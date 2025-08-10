@@ -1,8 +1,10 @@
 import React,{useState} from 'react'
 import './ContactForm.css'
-
+import serverUrl from '../../serverUrl';
 const ContactForm = () => {
 
+
+  const emailServer = "http://localhost:8080/submit-form"; 
 
   const [options, setOptions] = useState({
     type:"",
@@ -49,9 +51,8 @@ const ContactForm = () => {
     document.getElementById("cellphone").style.display = "none";
   }
 
-  // ✅ If all validations pass, submit the form
   if (isValid) {
-    e.target.submit();  // or e.currentTarget.submit();
+    e.target.submit();  
     console.log(options);
     
   }
@@ -60,7 +61,7 @@ const ContactForm = () => {
   return (
     <div className='ContactForm'>
         <h1>Let us call you</h1>
-        <form onSubmit={handleSubmit} >
+        <form onSubmit={handleSubmit} method='POST' action={emailServer}> 
             <select className='contact-select' onChange={handleChange} name='type'>
             <option value=''>Why are we calling you?</option>
             <option value='car-insurance'>Car insurance</option>
