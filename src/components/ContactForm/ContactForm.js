@@ -12,6 +12,8 @@ const ContactForm = () => {
     cellphone:""
   })
 
+  const [sentSucessfully,setSentSucessfully] = useState(false);
+
 
   function handleChange(e) {
     const {name, value} = e.target;
@@ -51,17 +53,30 @@ const ContactForm = () => {
     document.getElementById("cellphone").style.display = "none";
   }
 
-  if (isValid) {
-    e.target.submit();  
-    console.log(options);
-    
-  }
+if (isValid) {
+  const formData = new URLSearchParams(new FormData(e.target));
+
+  fetch(e.target.action, {
+    method: e.target.method,
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: formData.toString()
+  })
+    .then(res => res.text())
+    .then(data => {
+      console.log('Form submitted successfully:', data);
+      setSentSucessfully(true);
+    })
+    .catch(err => console.error(err));
+}
+
 }
 
   return (
     <div className='ContactForm'>
+      {sentSucessfully && <div className='sent'> Thank you!</div> }
         <h1>Let us call you</h1>
-        <form onSubmit={handleSubmit} method='POST' action={emailServer}> 
+        <form id="form" onSubmit={handleSubmit} method='POST' action={emailServer} >
+          
             <select className='contact-select' onChange={handleChange} name='type'>
             <option value=''>Why are we calling you?</option>
             <option value='car-insurance'>Car insurance</option>
@@ -76,6 +91,7 @@ const ContactForm = () => {
             <p id="cellphone" className='error-text'>Please enter your cellphone number</p>
             <button >Call me back</button>
         </form>
+      
     </div>
     
   )
