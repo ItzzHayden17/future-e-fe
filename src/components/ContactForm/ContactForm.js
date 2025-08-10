@@ -4,7 +4,7 @@ import serverUrl from '../../serverUrl';
 const ContactForm = () => {
 
 
-  const emailServer = "http://localhost:8080/submit-form"; 
+  const emailServer = `${serverUrl}/submit-form`; 
 
   const [options, setOptions] = useState({
     type:"",
