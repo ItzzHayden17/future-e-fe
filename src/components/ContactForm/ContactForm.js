@@ -9,7 +9,8 @@ const ContactForm = () => {
   const [options, setOptions] = useState({
     type:"",
     name_surname:"",
-    cellphone:""
+    cellphone:"",
+    email:""
   })
 
   const [sentSucessfully,setSentSucessfully] = useState(false);
@@ -46,11 +47,13 @@ const ContactForm = () => {
     document.getElementById("name_surname").style.display = "none";
   }
 
-  if (options.cellphone === "") {
+  if (options.cellphone === "" && options.email === "") {
     document.getElementById("cellphone").style.display = "block";
+    document.getElementById("email").style.display = "block";
     isValid = false;
   } else {
     document.getElementById("cellphone").style.display = "none";
+    document.getElementById("email").style.display = "none";
   }
 
 if (isValid) {
@@ -79,16 +82,16 @@ if (isValid) {
           
             <select className='contact-select' onChange={handleChange} name='type'>
             <option value=''>Why are we calling you?</option>
-            <option value='car-insurance'>Car insurance</option>
-            <option value='house-insurance'>House insurance</option>
-            <option value='mobile-insurance'>Mobile insurance</option>
-            <option value='medical-insurance'>Medical insurance</option>
+            <option value='personal-insurance'>Personal insurance</option>
+            <option value='commercial-insurance'>Commercial insurance</option>
             </select>
             <p id="type" className='error-text'>Please choose the product you are interested in</p>
             <input type='text' placeholder='Name and Surname' className='contact-input'name='name_surname' onChange={handleChange}/>
             <p id="name_surname" className='error-text'>Please enter your Name and Surname</p>
             <input type='number' placeholder='Cellphone number' className='contact-input' name='cellphone' onChange={handleChange}/>
-            <p id="cellphone" className='error-text'>Please enter your cellphone number</p>
+            <p id="cellphone" className='error-text'>Please enter your cellphone number or email address</p>
+            <input type='text' placeholder='Email address' className='contact-input' name='email' onChange={handleChange}/>
+            <p id="email" className='error-text'>Please enter your email address or cellphone number</p>
             <button >Call me back</button>
         </form>
       
