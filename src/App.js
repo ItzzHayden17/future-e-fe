@@ -39,16 +39,30 @@ function App() {
       console.error("Cookie check failed", error);
     }
 
-    try {
-      if(      window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true){
-        setIsMobile(true);
-      }
-    } catch (error) {
-      
-    }
   }, []); // only runs once on mount
 
+useEffect(() => {
+  function checkStandalone() {
+    if (
+      window.matchMedia("(display-mode: standalone)").matches ||
+      window.navigator.standalone === true
+    ) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  }
 
+  checkStandalone(); // initial check
+
+  // Listen for changes (some browsers support this)
+  const handler = (e) => checkStandalone();
+  window.matchMedia("(display-mode: standalone)").addEventListener("change", handler);
+
+  return () => {
+    window.matchMedia("(display-mode: standalone)").removeEventListener("change", handler);
+  };
+}, []);
   
 
   const [activePage, setActivePage] = useState('home');
