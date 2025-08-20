@@ -91,17 +91,21 @@ useEffect(() => {
 
   return (
     <div className="App">
-
-      
-
-
       {underConstruction ? <>
       
           {isLoggedIn ? <>
+
+          {isMobile ? <>
+          <Mobile />
+          </> 
+          : 
+          <>
           <LoadingScreen />
           {loading && <LoadingScreen />}
           <Navbar onClick={handlePageChange} />
           {renderPage(activePage)}
+          </> }
+
         </>:<>
         <Construction/> </>}
       
