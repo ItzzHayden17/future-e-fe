@@ -1,0 +1,95 @@
+.Claims{
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    margin: 50px 0;
+
+    .logo{
+        border-radius: 20px;
+        margin-bottom: 20px;
+    }
+
+    h1{
+        line-height: 0;
+    }
+    h3{
+        line-height: 0;
+    }
+    a{
+        img{
+            align-self: center;
+        }
+        all: unset;
+        display: flex;
+        gap: 5px;
+        justify-content: center;
+        align-self: center;
+        border: solid 1px black;
+        padding: 0 5px;
+        border-radius: 20px;
+    }
+
+    ul{
+        list-style: none;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        li{
+            margin: 2px;
+        }
+        
+
+        img{
+            padding-right: 10px;
+        }
+    }
+
+    button{
+        margin: 20px 0;
+        padding: 10px 50px;
+        border-radius: 20px;
+        border: none;
+        background-color: black;
+        color: white;
+        font-size: 18px;
+
+    }
+
+    button:hover{
+        background-color: #ffffff;
+        color: black;
+    }
+
+        form{
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+    }
+
+    label{
+        color: #333;
+        font-size: 14px;
+        margin-top: 10px;
+    }
+
+    input{
+        margin-top: 5px ;
+        padding: 5px;
+        border-radius: 5px;
+        border: solid 1px rgb(154, 152, 152);
+    }
+
+    button{
+        margin-top: 15px;
+        padding: 10px 5px;
+        border-radius: 5px;
+        border: none;
+        background-color: black;
+        color: white;
+        font-weight: bold;
+    }
+}

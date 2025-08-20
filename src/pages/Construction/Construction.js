@@ -27,7 +27,7 @@ const Construction = (props) => {
   };
 
   console.log('Submitting:', data);
-axios.post(`${serverUrl}/login`, data, {
+axios.post(`${serverUrl}/login-admin`, data, {
   headers: {
     'Content-Type': 'application/json'
   }
@@ -54,7 +54,7 @@ axios.post(`${serverUrl}/login`, data, {
 
         <h1>We are currently under construction</h1>
         <p>Owner ? Log in :</p>
-        <form method='POST' action={`${serverUrl}/login`} onSubmit={handleSubmit}> 
+        <form method='POST' action={`${serverUrl}/login-admin`} onSubmit={handleSubmit}> 
             <input type='text' name="username" placeholder='Username' onChange={handleChange}></input>
             <input type='password'name="password"  placeholder='password' onChange={handleChange}></input>
             <button>Log in</button>

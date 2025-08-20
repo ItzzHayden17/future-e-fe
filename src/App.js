@@ -9,10 +9,12 @@ import Construction from './pages/Construction/Construction';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import serverUrl from './serverUrl';
+import Mobile from './pages/Mobile/Mobile';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [underConstruction,setUnderConstruction] = useState(false);
+  const [underConstruction,setUnderConstruction] = useState();
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     axios.get(`${serverUrl}/under-construction`).then(response => {
@@ -36,7 +38,18 @@ function App() {
     } catch (error) {
       console.error("Cookie check failed", error);
     }
+
+    try {
+      if(      window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true){
+        setIsMobile(true);
+      }
+    } catch (error) {
+      
+    }
   }, []); // only runs once on mount
+
+
+  
 
   const [activePage, setActivePage] = useState('home');
   const [loading, setLoading] = useState(false);
@@ -65,6 +78,8 @@ function App() {
   return (
     <div className="App">
 
+      
+
 
       {underConstruction ? <>
       
@@ -79,13 +94,19 @@ function App() {
       </> 
       : 
       <>
-        <LoadingScreen />
+
+      {isMobile ? <>
+        <Mobile />
+      </> : <>
+              <LoadingScreen />
           {loading && <LoadingScreen />}
           <Navbar onClick={handlePageChange} />
           {renderPage(activePage)}
-      
-      
       </>}
+
+      
+
+      </>} 
 
       
     </div>
