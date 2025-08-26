@@ -18,15 +18,17 @@ const Login = () => {
 
     console.log('Submitting:', data);
 
-    axios.post(`${serverUrl}/login`, data, {
+    axios.post(`${serverUrl}/company-login`, data, {
       headers: {
         'Content-Type': 'application/json'
       }
     })
     .then(res => {
       
-      if (res) {
-        Cookies.set('isLoggedInWithCompany', JSON.stringify(data)); // Store entire cookie so we can retrieve bit of info faster
+      if (res.data.success) {
+        console.log('Login successful:', res.data);
+        
+        Cookies.set('isLoggedInWithCompany', JSON.stringify(res.data.company)); // Store entire cookie so we can retrieve bit of info faster
         window.location.reload(); // Reload the page to reflect the login state
         
       } else {

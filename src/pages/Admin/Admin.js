@@ -24,46 +24,12 @@ const Admin = () => {
 
 
   useEffect(()=>{
-      const data = [
-    {
-    companyName : "WeBuyCars",
-    password : "asd",
-    towingServiceNumber : 27814385555,
-    
-  },
-  {
-    companyName : "NotSoFine",
-    password : "asd",
-    towingServiceNumber : 27814385555,
-    
+    const data = axios.get(`${serverUrl}/companies`)
+  .then(res => {
+    setData(res.data)
+    setFilteredData(res.data)
   }
-  ,{
-    companyName : "LetsGo",
-    password : "asd",
-    towingServiceNumber : 27814385555,
-    
-  }
-  ,{
-    companyName : "Amplifin",
-    password : "asd",
-    towingServiceNumber : 27814385555,
-    
-  }
-  ,{
-    companyName : "SouderneFinansiering",
-    password : "asd",
-    towingServiceNumber : 27814385555,
-    
-  }
-  ,{
-    companyName : "WeBuyCars",
-    password : "asd",
-    towingServiceNumber : 27814385555,
-    
-  }
-  ]
-  setData(data)
-  setFilteredData(data)
+  ).catch(err => console.error(err));
   },[])
 
 

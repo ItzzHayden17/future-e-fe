@@ -1,10 +1,19 @@
-import React ,{useState} from 'react'
+import React ,{useEffect, useState} from 'react'
 import './Claims.css'
 import serverUrl from "../../../../serverUrl"
+import Cookies from 'js-cookie'
+
 const Claims = () => {
 
     const [claim, setClaim] = useState(false);
+    const [company, setCompany] = useState("");
 
+
+
+    useEffect(()=>{
+      const company = Cookies.get('isLoggedInWithCompany');
+      setCompany(JSON.parse(company));
+    },[])
 
 
     function handleSubmitClaim() {
@@ -13,13 +22,15 @@ const Claims = () => {
         // You can add more logic here, like sending data to a server
     }
 
+
+
   return (
     <div className='Claims'>
       {/* Implement a logout button maybe? */}
         {claim ? 
         <>
         <img src={"/assets/black_logo_with_text.png"} alt="Claims" width={"100px"} className='logo' />
-        <h1>WeBuyCars</h1>
+        <h1>{company.companyName}</h1>
         <h3>Incident information</h3>
 
         <form method="post" action={`${serverUrl}/claims`}>
@@ -47,14 +58,14 @@ const Claims = () => {
         :
         <>
         <img src={"/assets/black_logo_with_text.png"} alt="Claims" width={"100px"} className='logo' />
-        <h1>WeBuyCars</h1> {/*get actually name in cookie} */}
+        <h1>{company.companyName}</h1> {/*get actually name in cookie} */}
         <h3>What to do if you have a motor accident:</h3>
         <ul>
             <li><img src='assets/mdi_check-bold.png'></img>Stop immediately and stay calm</li>
             <li><img src='assets/icomoon-free_cross.png'></img>Do not admit or accept liablity</li>
         </ul>
 
-        <a href='tel:0814385555'><img src='assets/mdi_auto-towing.png'></img><p>0814385555</p> </a>
+        <a href='tel:0814385555'><img src='assets/mdi_auto-towing.png'></img><p>{company.towingServiceNumber}</p> </a>
 
         <button onClick={handleSubmitClaim}>Submit a Claim</button>
         </>}

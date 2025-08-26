@@ -17,7 +17,12 @@ const AddOrEdit = (props) => {
             ...prev,
             [name]:value
         }))
+
+        console.log(name,value);
+        
     }
+
+
   return (
     <div className='AddOrEdit'>
 
@@ -25,18 +30,32 @@ const AddOrEdit = (props) => {
             <p onClick={handleCloseModal}>X</p>
             {props.mode === 'add' && <>
         <h1>Add a Company</h1>
-        <form method='POST' action={`${serverUrl}/add-company`}>
+        <form onSubmit={(e) => {
+                e.preventDefault();
+
+                const formData = new FormData(e.target);
+
+                const data = {
+                  companyName: formData.get('companyName'),
+                  password: formData.get('password'),
+                  towingNumber: formData.get('towingNumber')
+                }
+
+                axios.post(`${serverUrl}/add-company`, data)
+                  .then(res => props.onClose())
+                  .catch(err => console.error(err));
+    }}>
             <label>Company name</label>
-            <input placeholder='Company name'></input>
+            <input placeholder='Company name' name='companyName'></input>
 
             <label>Password</label>
-            <input placeholder='Password'></input>
+            <input placeholder='Password' name='password'></input>
             
             <label>Confirm Password</label>
             <input placeholder='Confirm Password'></input>
 
             <label>Towing service number</label>
-            <input placeholder='Company name'></input>
+            <input placeholder='Number' type='number' name='towingNumber'></input>
 
             <button>Add</button>
         </form>
@@ -45,12 +64,22 @@ const AddOrEdit = (props) => {
   <>
     <h1>Edit Company</h1>
     <form onSubmit={(e) => {
-      e.preventDefault();
-      console.log("Updated company:", company);
-      axios.put(`${serverUrl}/edit-company`, company)
-        .then(res => props.onClose())
-        .catch(err => console.error(err));
+                e.preventDefault();
+                const formData = new FormData(e.target);
+
+                const data = {
+                  id :formData.get('id'),
+                  companyName: formData.get('companyName'),
+                  password: formData.get('password'),
+                  towingNumber: formData.get('towingServiceNumber')
+                }
+                console.log(data);
+
+                axios.post(`${serverUrl}/edit-company`, data)
+                  .then(res => props.onClick())
+                  .catch(err => console.error(err));
     }}>
+      <input type="hidden" name="id" value={company.id} />
       <label>Company name</label>
       <input 
         name="companyName"
