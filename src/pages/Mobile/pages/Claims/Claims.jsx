@@ -27,6 +27,7 @@ const Claims = () => {
   return (
     <div className='Claims'>
       {/* Implement a logout button maybe? */}
+      <button className='logout' onClick={()=>{Cookies.remove("isLoggedInWithCompany"); window.location.reload(); }}>Logout</button>
         {claim ? 
         <>
         <img src={"/assets/black_logo_with_text.png"} alt="Claims" width={"100px"} className='logo' />
@@ -34,21 +35,31 @@ const Claims = () => {
         <h3>Incident information</h3>
 
         <form method="post" action={`${serverUrl}/claims`}>
-        <label>Company name</label>
-        <input placeholder="Enter your Company name" type="text" ></input>
-        <label>Password</label>
+
+        {/* Change all inputs to textareas */}
+        
+        <label>DATE, TIME, AND PLACE OF ACCIDENT</label>
+        <input placeholder="2025/04/01,12:00,Silverton Pretoria" type="text" ></input>
+
+        <label>OTHER VEHICLE(S) DETAILS – MAKE(S), COLOUR(S) AND REGISTRATION NUMBER(S)</label>
         <input placeholder="Password" type="password"></input>
-                <label>Company name</label>
+
+        <label>OTHER DRIVER(S) DETAILS – NAME(S), SURNAME(S), ADDRESS(ES), PHONE NUMBER(S),ID NUMBER(S)</label>
         <input placeholder="Enter your Company name" type="text" ></input>
-        <label>Password</label>
+
+        <label>OWNER DETAILS (ONLY IF THE DRIVER IS NOT THE OWNER) – NAME, ADDRESS, PHONE NUMBER</label>
         <input placeholder="Password" type="password"></input>
-                <label>Company name</label>
+
+        <label>INSURANCE COMPANY(IES) – WITH WHICH THE OTHER VEHICLE(S) IS/ARE INSURED?</label>
         <input placeholder="Enter your Company name" type="text" ></input>
-        <label>Password</label>
+
+        <label>NAME AND CONTACT DETAILS OF ANY WITNESS(ES)</label>
         <input placeholder="Password" type="password"></input>
-                <label>Company name</label>
+        
+        <label>NAME AND STATION OF THE POLICE/TRAFFIC OFFICER – IF PRESENT</label>
         <input placeholder="Enter your Company name" type="text" ></input>
-        <label>Password</label>
+
+        <label>GIVE A SHORT DISCRIPTION OF THE ACCIDENT</label>
         <input placeholder="Password" type="password"></input>
 
         <button>Submit</button>
