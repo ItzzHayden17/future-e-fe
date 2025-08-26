@@ -1,0 +1,106 @@
+.Admin{
+    .admin-nav{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 50px;
+
+        .header{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            h1{
+                font-size: 50px;
+                margin-left: 15px;
+
+            }
+        }
+
+        .search-bar{
+            padding: 2px 10px;
+            border: solid 2px;
+            border-radius: 20px;
+            align-items: center;
+            display: flex;
+            flex-direction: row;
+            input{
+                border: none;
+                background-color: rgba(240, 248, 255, 0);
+            }
+            input:focus{
+                border: none;
+                background-color: rgba(240, 248, 255, 0);
+            }
+        }
+    }
+
+
+    .display-columns{
+        padding: 0 100px;
+
+        .header{
+           display: flex;
+           flex-direction: row; 
+           align-items: center;
+           justify-content: space-between;
+           h3{
+            font-size: 16px;
+            font-weight: 400;
+           }
+
+           button{
+            background-color: black;
+            color: white;
+            padding: 5px 20px;
+            border: none;
+            border-radius: 10px;
+           }
+
+           button:hover{
+            scale: 1.1;
+            cursor: pointer;
+           }
+
+        }
+
+        .company{
+            display: flex;
+            font-display: row;
+            align-items: center;
+            justify-content: space-between;
+            background-color: black;
+            color: white;
+            margin: 5px 0;
+            padding: 0 20px;
+            border-radius: 10px;
+
+            .info{
+                align-items: center;
+                display: flex;
+                gap: 10px;
+                button{
+                    margin-left: 50px;
+                    padding: 5px 20px;
+                    border: none;
+                    border-radius: 10px;
+                    font-weight: 700;
+                }
+                        button:hover{
+            scale: 1.1;
+            cursor: pointer;
+        }
+
+            }
+        }
+
+        .company:hover{
+            scale: 1.04;
+            cursor: pointer;    
+        }
+
+
+        
+    }
+}

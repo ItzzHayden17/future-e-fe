@@ -3,7 +3,7 @@ import './Claims.css'
 import serverUrl from "../../../../serverUrl"
 const Claims = () => {
 
-    const [claim, setClaim] = useState(true);
+    const [claim, setClaim] = useState(false);
 
 
 
@@ -15,13 +15,14 @@ const Claims = () => {
 
   return (
     <div className='Claims'>
+      {/* Implement a logout button maybe? */}
         {claim ? 
         <>
         <img src={"/assets/black_logo_with_text.png"} alt="Claims" width={"100px"} className='logo' />
         <h1>WeBuyCars</h1>
         <h3>Incident information</h3>
 
-        <form method="post" action={`${serverUrl}/login`}>
+        <form method="post" action={`${serverUrl}/claims`}>
         <label>Company name</label>
         <input placeholder="Enter your Company name" type="text" ></input>
         <label>Password</label>
@@ -46,7 +47,7 @@ const Claims = () => {
         :
         <>
         <img src={"/assets/black_logo_with_text.png"} alt="Claims" width={"100px"} className='logo' />
-        <h1>WeBuyCars</h1>
+        <h1>WeBuyCars</h1> {/*get actually name in cookie} */}
         <h3>What to do if you have a motor accident:</h3>
         <ul>
             <li><img src='assets/mdi_check-bold.png'></img>Stop immediately and stay calm</li>

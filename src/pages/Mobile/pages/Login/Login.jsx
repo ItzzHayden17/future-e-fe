@@ -26,7 +26,7 @@ const Login = () => {
     .then(res => {
       
       if (res) {
-        Cookies.set('isLoggedInWithCompany', JSON.stringify(data)); // Store company name in cookies
+        Cookies.set('isLoggedInWithCompany', JSON.stringify(data)); // Store entire cookie so we can retrieve bit of info faster
         window.location.reload(); // Reload the page to reflect the login state
         
       } else {

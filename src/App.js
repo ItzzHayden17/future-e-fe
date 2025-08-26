@@ -1,134 +1,19 @@
 import './App.css';
 import Home from './pages/Home/Home';
-import Contact from './pages/Contact/Contact';
-import Navbar from './components/Navbar/Navbar';
-import LoadingScreen from './components/LoadingScreen/LoadingScreen';
-import About from './pages/About/About';
-import { useState, useEffect } from 'react';
-import Construction from './pages/Construction/Construction';
-import Cookies from 'js-cookie';
-import axios from 'axios';
-import serverUrl from './serverUrl';
-import Mobile from './pages/Mobile/Mobile';
+import { Route,Routes } from 'react-router';
+import Admin from './pages/Admin/Admin';
+import HomeDirectory from './pages/HomeDirectory/HomeDirectory';
 
-function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [underConstruction,setUnderConstruction] = useState();
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    axios.get(`${serverUrl}/under-construction`).then(response => {
-      if (response.data.underConstruction) {
-        setUnderConstruction(true);
-      } else {
-        setUnderConstruction(false);
-      }
-      
-    })
-  },[])
-
-  useEffect(() => {
-    try {
-      if (Cookies.get('isLoggedIn') === 'true') {
-        setIsLoggedIn(true);
-        
-      }else{
-        setIsLoggedIn(false);
-      }
-    } catch (error) {
-      console.error("Cookie check failed", error);
-    }
-
-  }, []); // only runs once on mount
-
-useEffect(() => {
-  function checkStandalone() {
-    if (
-      window.matchMedia("(display-mode: standalone)").matches ||
-      window.navigator.standalone === true
-    ) {
-      setIsMobile(true);
-    } else {
-      setIsMobile(false);
-    }
-  }
-
-  checkStandalone(); // initial check
-
-  // Listen for changes (some browsers support this)
-  const handler = (e) => checkStandalone();
-  window.matchMedia("(display-mode: standalone)").addEventListener("change", handler);
-
-  return () => {
-    window.matchMedia("(display-mode: standalone)").removeEventListener("change", handler);
-  };
-}, []);
-  
-
-  const [activePage, setActivePage] = useState('home');
-  const [loading, setLoading] = useState(false);
-
-  function handlePageChange(page) {
-    setLoading(true);
-    setActivePage(page);
-    setTimeout(() => {
-      setLoading(false);
-    }, 500);
-  }
-
-  function renderPage(page) {
-    switch (page) {
-      case 'home':
-        return <Home />;
-      case 'about-us':
-        return <About />;
-      case 'contact-us':
-        return <Contact />;
-      default:
-        return null;
-    }
-  }
+const App = () => {
 
   return (
     <div className="App">
-      {underConstruction ? <>
-      
-          {isLoggedIn ? <>
-
-          {isMobile ? <>
-          <Mobile />
-          </> 
-          : 
-          <>
-          <LoadingScreen />
-          {loading && <LoadingScreen />}
-          <Navbar onClick={handlePageChange} />
-          {renderPage(activePage)}
-          </> }
-
-        </>:<>
-        <Construction/> </>}
-      
-      </> 
-      : 
-      <>
-
-      {isMobile ? <>
-        <Mobile />
-      </> : <>
-              <LoadingScreen />
-          {loading && <LoadingScreen />}
-          <Navbar onClick={handlePageChange} />
-          {renderPage(activePage)}
-      </>}
-
-      
-
-      </>} 
-
-      
+      <Routes>
+        <Route path='/' element={<HomeDirectory/>}/>
+        <Route path='/admin' element={<Admin/>}/>
+      </Routes>
     </div>
   );
-}
 
+}
 export default App;

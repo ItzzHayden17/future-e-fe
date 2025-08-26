@@ -44,7 +44,6 @@ axios.post(`${serverUrl}/login-admin`, data, {
   console.error('Login error:', err);
 });
 
-    console.log(serverUrl);
     
 }
 
