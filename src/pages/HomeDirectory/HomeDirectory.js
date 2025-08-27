@@ -14,7 +14,7 @@ import Mobile from '../Mobile/Mobile';
 function HomeDirectory() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [underConstruction,setUnderConstruction] = useState();
-  const [isMobile, setIsMobile] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     axios.get(`${serverUrl}/under-construction`).then(response => {
