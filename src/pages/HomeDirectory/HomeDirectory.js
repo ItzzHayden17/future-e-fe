@@ -14,7 +14,7 @@ import Mobile from '../Mobile/Mobile';
 function HomeDirectory() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [underConstruction,setUnderConstruction] = useState();
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(true);
 
   useEffect(() => {
     axios.get(`${serverUrl}/under-construction`).then(response => {
@@ -53,7 +53,7 @@ useEffect(() => {
     }
   }
 
-  checkStandalone(); // initial check
+  // checkStandalone(); // initial check
 
   // Listen for changes (some browsers support this)
   const handler = (e) => checkStandalone();

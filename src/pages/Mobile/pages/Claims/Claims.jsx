@@ -1,87 +1,152 @@
-import React ,{useEffect, useState} from 'react'
-import './Claims.css'
-import serverUrl from "../../../../serverUrl"
-import Cookies from 'js-cookie'
+import React, { useEffect, useRef, useState } from 'react';
+import './Claims.css';
+import serverUrl from "../../../../serverUrl";
+import Cookies from 'js-cookie';
+import SignatureCanvas from "react-signature-canvas";
 
 const Claims = () => {
+  const [claim, setClaim] = useState(false);
+  const [company, setCompany] = useState("");
+  const [imageURL, setImageURL] = useState(null);
 
-    const [claim, setClaim] = useState(false);
-    const [company, setCompany] = useState("");
+  const sigCanvas = useRef(null);
 
+  useEffect(() => {
+    const companyCookie = Cookies.get('isLoggedInWithCompany');
+    if (companyCookie) setCompany(JSON.parse(companyCookie));
+  }, []);
 
+  // Merge background image and signature sketch
+  function getMergedImage() {
+    const canvas = document.createElement("canvas");
+    canvas.width = 400;
+    canvas.height = 300;
 
-    useEffect(()=>{
-      const company = Cookies.get('isLoggedInWithCompany');
-      setCompany(JSON.parse(company));
-    },[])
+    const ctx = canvas.getContext("2d");
 
+    // Draw background image first
+    const background = new Image();
+    background.src = "/assets/accident-diagram.png";
+    background.onload = () => {
+      ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
-    function handleSubmitClaim() {
-        // Logic to submit the claim
-        setClaim(true);
-        // You can add more logic here, like sending data to a server
-    }
+      // Draw signature/sketch on top
+      const sketch = new Image();
+      sketch.src = sigCanvas.current.toDataURL("image/png");
+      sketch.onload = () => {
+        ctx.drawImage(sketch, 0, 0, canvas.width, canvas.height);
 
+        // Get combined image as base64
+        const combinedURL = canvas.toDataURL("image/png");
+        setImageURL(combinedURL);
+        console.log("Merged image URL:", combinedURL);
+      };
+    };
+  }
 
+  function handleSubmitForm() {
+    setClaim(!claim);
+  }
 
   return (
     <div className='Claims'>
-      {/* Implement a logout button maybe? */}
-      <button className='logout' onClick={()=>{Cookies.remove("isLoggedInWithCompany"); window.location.reload(); }}>Logout</button>
-        {claim ? 
+      <button className='logout' onClick={() => { Cookies.remove("isLoggedInWithCompany"); window.location.reload(); }}>Logout</button>
+
+      {claim ?
         <>
-        <img src={"/assets/black_logo_with_text.png"} alt="Claims" width={"100px"} className='logo' />
-        <h1>{company.companyName}</h1>
-        <h3>Incident information</h3>
+          <img src={"/assets/black_logo_with_text.png"} alt="Claims" width={"100px"} className='logo' />
+          <h1>{company.companyName}</h1>
+          <h3>Incident information</h3>
 
-        <form method="post" action={`${serverUrl}/claims`}>
+          <form method="post" action={`${serverUrl}/claims`}>
 
-        {/* Change all inputs to textareas */}
-        
-        <label>DATE, TIME, AND PLACE OF ACCIDENT</label>
-        <input placeholder="2025/04/01,12:00,Silverton Pretoria" type="text" ></input>
+            <label>DATE, TIME, AND PLACE OF ACCIDENT</label>
+            <input placeholder="2025/04/01,12:00,Silverton Pretoria" type="text" name="date_time_place" />
 
-        <label>OTHER VEHICLE(S) DETAILS – MAKE(S), COLOUR(S) AND REGISTRATION NUMBER(S)</label>
-        <input placeholder="Password" type="password"></input>
+            <label>OTHER VEHICLE(S) DETAILS – MAKE(S), COLOUR(S) AND REGISTRATION NUMBER(S)</label>
+            <input placeholder="OTHER VEHICLE(S) DETAILS" type="text" name="desc_other_vehicle" />
 
-        <label>OTHER DRIVER(S) DETAILS – NAME(S), SURNAME(S), ADDRESS(ES), PHONE NUMBER(S),ID NUMBER(S)</label>
-        <input placeholder="Enter your Company name" type="text" ></input>
+            <label>OTHER DRIVER(S) DETAILS – NAME(S), SURNAME(S), ADDRESS(ES), PHONE NUMBER(S),ID NUMBER(S)</label>
+            <input placeholder="OTHER DRIVER(S) DETAILS" type="text" name="other_driver_details" />
 
-        <label>OWNER DETAILS (ONLY IF THE DRIVER IS NOT THE OWNER) – NAME, ADDRESS, PHONE NUMBER</label>
-        <input placeholder="Password" type="password"></input>
+            <label>OWNER DETAILS (ONLY IF THE DRIVER IS NOT THE OWNER) – NAME, ADDRESS, PHONE NUMBER</label>
+            <input placeholder="OWNER DETAILS" type="text" name="owner_details" />
 
-        <label>INSURANCE COMPANY(IES) – WITH WHICH THE OTHER VEHICLE(S) IS/ARE INSURED?</label>
-        <input placeholder="Enter your Company name" type="text" ></input>
+            <label>INSURANCE COMPANY(IES) – WITH WHICH THE OTHER VEHICLE(S) IS/ARE INSURED?</label>
+            <input placeholder="INSURANCE COMPANY" type="text" name="insurance_company_of_other_driver" />
 
-        <label>NAME AND CONTACT DETAILS OF ANY WITNESS(ES)</label>
-        <input placeholder="Password" type="password"></input>
-        
-        <label>NAME AND STATION OF THE POLICE/TRAFFIC OFFICER – IF PRESENT</label>
-        <input placeholder="Enter your Company name" type="text" ></input>
+            <label>NAME AND CONTACT DETAILS OF ANY WITNESS(ES)</label>
+            <input placeholder="Witness contact details" type="text" name="witness_contact_details" />
 
-        <label>GIVE A SHORT DISCRIPTION OF THE ACCIDENT</label>
-        <input placeholder="Password" type="password"></input>
+            <label>NAME AND STATION OF THE POLICE/TRAFFIC OFFICER – IF PRESENT</label>
+            <input placeholder="Police officer details" type="text" name="police_officer_details" />
 
-        <button>Submit</button>
-        </form>
-        
-        </> 
+            <label>GIVE A SHORT DESCRIPTION OF THE ACCIDENT</label>
+            <input placeholder="Description" type="text" name="accident_description" />
+
+            <label>UPLOAD A SKETCH OF THE ACCIDENT (OPTIONAL)</label>
+            <input type="hidden" name="accident_sketch" value={imageURL || ""} />
+
+            <div style={{ position: "relative", width: 400, height: 300 }}>
+              {/* Background image */}
+              <img
+                src="/assets/accident-diagram.png"
+                alt="background"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  position: "relative",
+                  top: 0,
+                  left: 0,
+                  zIndex: 0
+                }}
+              />
+
+              {/* Drawing canvas */}
+              <SignatureCanvas
+                ref={sigCanvas}
+                penColor="red"
+                backgroundColor="transparent"
+                canvasProps={{
+                  width: 400,
+                  height: 300,
+                  style: {
+                    border: "1px solid black",
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    zIndex: 1,
+                  },
+                }}
+                onEnd={getMergedImage} // merge sketch with background
+              />
+            </div>
+
+            <button type="button" onClick={handleSubmitForm}>Cancel</button>
+            <button type="submit">Submit</button>
+            <input type="hidden" name="companyName" value={company.companyName} />
+          </form>
+        </>
         :
         <>
-        <img src={"/assets/black_logo_with_text.png"} alt="Claims" width={"100px"} className='logo' />
-        <h1>{company.companyName}</h1> {/*get actually name in cookie} */}
-        <h3>What to do if you have a motor accident:</h3>
-        <ul>
-            <li><img src='assets/mdi_check-bold.png'></img>Stop immediately and stay calm</li>
-            <li><img src='assets/icomoon-free_cross.png'></img>Do not admit or accept liablity</li>
-        </ul>
+          <img src={"/assets/black_logo_with_text.png"} alt="Claims" width={"100px"} className='logo' />
+          <h1>{company.companyName}</h1>
+          <h3>What to do if you have a motor accident:</h3>
+          <ul>
+            <li><img src='assets/mdi_check-bold.png' alt="check" />Stop immediately and stay calm</li>
+            <li><img src='assets/icomoon-free_cross.png' alt="cross" />Do not admit or accept liability</li>
+          </ul>
 
-        <a href='tel:0814385555'><img src='assets/mdi_auto-towing.png'></img><p>{company.towingServiceNumber}</p> </a>
+          <a href={`tel:${company.towingServiceNumber}`} >
+            <img src='assets/mdi_auto-towing.png' alt="towing" />
+            <p>{company.towingServiceNumber}</p>
+          </a>
 
-        <button onClick={handleSubmitClaim}>Submit a Claim</button>
-        </>}
+          <button onClick={handleSubmitForm}>Submit a Claim</button>
+        </>
+      }
     </div>
-  )
+  );
 }
 
-export default Claims
+export default Claims;
