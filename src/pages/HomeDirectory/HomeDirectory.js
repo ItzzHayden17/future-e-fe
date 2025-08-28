@@ -53,7 +53,7 @@ useEffect(() => {
     }
   }
 
-  // checkStandalone(); // initial check
+  checkStandalone(); // initial check
 
   // Listen for changes (some browsers support this)
   const handler = (e) => checkStandalone();
