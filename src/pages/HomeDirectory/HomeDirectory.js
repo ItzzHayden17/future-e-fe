@@ -10,6 +10,7 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 import serverUrl from '../../serverUrl';
 import Mobile from '../Mobile/Mobile';
+import WhatWeOffer from '../WhatWeOffer/WhatWeOffer';
 
 function HomeDirectory() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -84,6 +85,8 @@ useEffect(() => {
         return <About />;
       case 'contact-us':
         return <Contact />;
+      case 'what-we-offer':
+        return <WhatWeOffer />; 
       default:
         return null;
     }

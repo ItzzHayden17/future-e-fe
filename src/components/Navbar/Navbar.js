@@ -22,6 +22,7 @@ const Navbar = (props) => {
         {activePage === "home" ? <></> : <h1 onClick={() => handleClick("home")}>Home</h1>}
         {activePage === "about-us" ? <></> : <h1 onClick={() => handleClick("about-us")}>About Us</h1>}
         {activePage === "contact-us" ? <></> : <h1 onClick={() => handleClick("contact-us")}>Contact Us</h1>}
+        {activePage === "what-we-offer" ? <></> : <h1 onClick={() => handleClick("what-we-offer")}>What we offer</h1>}
 
         
         
