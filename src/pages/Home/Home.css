@@ -6,6 +6,8 @@
     height: 100vh;
     width: 100vw;
     overflow: hidden;
+    
+
 
     .mobile_image{
         display: none;
@@ -24,7 +26,7 @@
         
         .intro{
             font-weight: 900;
-            font-size: 40px;
+            font-size: 30px;
             margin-bottom: 10px;
            
         }
@@ -119,22 +121,35 @@
         display: none;
     };
     .home-content{
-        margin: 0;
-            .intro{
-        font-size: 50px;
-        text-align: center;
+        margin: 0 ;
+        width: 100%;
+    .intro{
+        font-size: 30px;
+        padding: 10px 40px;
+        text-align: center;;
 
     }
+      .intro-text{
+        text-align: center;
+        font-size: 16px;
+        font-weight: 300;
+        padding: 0 20px;
     }
 
-    .intro-text{
-        text-align: center;
-        font-size: 23px;
-        margin: 20px;
+    .buttons{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
+    }
+
+  
 
     .socials{
-        justify-content: center;margin-bottom: 50px;
+        justify-content: center;
+        margin-bottom: 50px;
+        width: 100%;
         }
 
   }

@@ -63,14 +63,12 @@ const About = () => {
           <TeamMember img={"/assets/member.png"} name={"Belinda Mokoena"} />
           <TeamMember img={"/assets/member.png"} name={"Belinda Mokoena"} />
         </div>
-            <div className='socials'>
-            <img src='assets/facebook_icon.png'></img>
-            <img src='assets/instagram_icon.png'></img>
-            <img src='assets/call_icon.png'></img>
-            <img src='assets/email_icon.png' ></img>
+          <div className='socials'>
+            <a href='#'><img src='assets/facebook_icon.png'/></a>
+            <a href='#'><img src='assets/instagram_icon.png'/></a>
+            <a href='tel:0814385555'><img src='assets/call_icon.png'/></a>
+            <a href='mailto:marjeting@futur-e.co.za' ><img src='assets/email_icon.png' className='email-icon'/></a>
           </div>
-
-          <div className='copyright'>2025    Futur-e</div>
     </div>
   )
 }

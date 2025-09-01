@@ -145,6 +145,7 @@
 
                     p{
                         font-size: 20px;
+                        text-align: left;
                     }
                  }
             }
@@ -170,7 +171,7 @@
             }
 
             button{
-                margin-top: 50px;
+                margin-top: 250px;
             }
 
             .team-header{

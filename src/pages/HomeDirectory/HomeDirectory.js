@@ -15,7 +15,7 @@ import WhatWeOffer from '../WhatWeOffer/WhatWeOffer';
 function HomeDirectory() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [underConstruction,setUnderConstruction] = useState();
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(true);
 
   useEffect(() => {
     axios.get(`${serverUrl}/under-construction`).then(response => {
@@ -54,7 +54,7 @@ useEffect(() => {
     }
   }
 
-  checkStandalone(); // initial check
+  // checkStandalone(); // initial check
 
   // Listen for changes (some browsers support this)
   const handler = (e) => checkStandalone();
@@ -77,10 +77,18 @@ useEffect(() => {
     }, 500);
   }
 
+  function handleAboutButton() {
+    handlePageChange('about-us');
+  }
+
+  function handleContactButton(){
+    handlePageChange('contact-us');
+  }
+
   function renderPage(page) {
     switch (page) {
       case 'home':
-        return <Home />;
+        return <Home handleAboutButton={handleAboutButton}  handleContactButton={handleContactButton}/> ;
       case 'about-us':
         return <About />;
       case 'contact-us':

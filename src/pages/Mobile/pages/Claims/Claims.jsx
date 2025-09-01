@@ -87,7 +87,7 @@ const Claims = () => {
             <label>UPLOAD A SKETCH OF THE ACCIDENT (OPTIONAL)</label>
             <input type="hidden" name="accident_sketch" value={imageURL || ""} />
 
-            <div style={{ position: "relative", width: 400, height: 300 }}>
+            <div style={{ position: "relative", width: "100%", height: 300 }}>
               {/* Background image */}
               <img
                 src="/assets/accident-diagram.png"
@@ -98,7 +98,8 @@ const Claims = () => {
                   position: "relative",
                   top: 0,
                   left: 0,
-                  zIndex: 0
+                  zIndex: 0,
+                   objectFit: "cover"
                 }}
               />
 
@@ -121,6 +122,15 @@ const Claims = () => {
                 onEnd={getMergedImage} // merge sketch with background
               />
             </div>
+            <button
+              type="button"
+              onClick={() => {
+                sigCanvas.current.clear();
+                setImageURL(null); // reset merged image too
+              }}
+            >
+              Reset Sketch
+            </button>
 
             <button type="button" onClick={handleSubmitForm}>Cancel</button>
             <button type="submit">Submit</button>
@@ -142,7 +152,7 @@ const Claims = () => {
             <p>{company.towingServiceNumber}</p>
           </a>
 
-          <button onClick={handleSubmitForm}>Submit a Claim</button>
+          <button onClick={handleSubmitForm}>Submit a Notification</button>
         </>
       }
     </div>
