@@ -87,14 +87,14 @@ const Claims = () => {
             <label>UPLOAD A SKETCH OF THE ACCIDENT (OPTIONAL)</label>
             <input type="hidden" name="accident_sketch" value={imageURL || ""} />
 
-            <div style={{ position: "relative", width: "100%", height: 300 }}>
+            <div style={{ position: "relative", width: "100%", height: 250 }}>
               {/* Background image */}
               <img
                 src="/assets/accident-diagram.png"
                 alt="background"
                 style={{
                   width: "100%",
-                  height: "100%",
+                  height: 250,
                   position: "relative",
                   top: 0,
                   left: 0,
@@ -109,14 +109,14 @@ const Claims = () => {
                 penColor="red"
                 backgroundColor="transparent"
                 canvasProps={{
-                  width: 400,
-                  height: 300,
+                  height: 250,
+                  width:"fit-content",
                   style: {
-                    border: "1px solid black",
                     position: "absolute",
                     top: 0,
                     left: 0,
                     zIndex: 1,
+                    height:250
                   },
                 }}
                 onEnd={getMergedImage} // merge sketch with background

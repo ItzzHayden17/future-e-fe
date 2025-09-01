@@ -105,3 +105,13 @@
         font-weight: bold;
     }
 }
+
+
+    @media screen and (max-width: 1024px) {
+        .Claims{
+            width: 100vw;
+            height: fit-content;
+            display: flex;
+            justify-content: center;
+        }
+    }
