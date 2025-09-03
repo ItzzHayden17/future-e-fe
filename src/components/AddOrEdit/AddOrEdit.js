@@ -17,9 +17,6 @@ const AddOrEdit = (props) => {
             ...prev,
             [name]:value
         }))
-
-        console.log(name,value);
-        
     }
 
 
@@ -38,11 +35,12 @@ const AddOrEdit = (props) => {
                 const data = {
                   companyName: formData.get('companyName'),
                   password: formData.get('password'),
-                  towingNumber: formData.get('towingNumber')
+                  towingNumber: formData.get('towingNumber'),
+                  policyNumber : formData.get('policyNumber')
                 }
 
                 axios.post(`${serverUrl}/add-company`, data)
-                  .then(res => props.onClose())
+                  .then(res => window.location.reload())
                   .catch(err => console.error(err));
     }}>
             <label>Company name</label>
@@ -56,6 +54,9 @@ const AddOrEdit = (props) => {
 
             <label>Towing service number</label>
             <input placeholder='Number' type='number' name='towingNumber'></input>
+            
+            <label>Policy number</label>
+            <input placeholder='Policy number' type='text' name='policyNumber'></input>
 
             <button>Add</button>
         </form>
@@ -71,12 +72,13 @@ const AddOrEdit = (props) => {
                   id :formData.get('id'),
                   companyName: formData.get('companyName'),
                   password: formData.get('password'),
-                  towingNumber: formData.get('towingServiceNumber')
+                  towingNumber: formData.get('towingServiceNumber'),
+                  policyNumber: formData.get('policyNumber')
                 }
                 console.log(data);
 
                 axios.post(`${serverUrl}/edit-company`, data)
-                  .then(res => props.onClick())
+                  .then(res => window.location.reload())
                   .catch(err => console.error(err));
     }}>
       <input type="hidden" name="id" value={company.id} />
@@ -110,6 +112,14 @@ const AddOrEdit = (props) => {
         name="towingServiceNumber"
         placeholder="Towing service number"
         value={company.towingServiceNumber || ""}
+        onChange={handleChange}
+      />
+
+      <label>Policy number</label>
+      <input 
+        name="policyNumber"
+        placeholder="Policy number"
+        value={company.policyNumber || ""}
         onChange={handleChange}
       />
 

@@ -13,6 +13,7 @@ const Admin = () => {
   const [filteredData,setFilteredData] = useState([])
   const [selectedCompany,setSelectedCompany] = useState(null)
   const [addOrEditMode,setAddOrEditMode] = useState(null) //null , add , edit
+  const [resetData,setResetData] = useState(false)
 
   useEffect(()=>{
    const admin = Cookies.get("isLoggedIn")
@@ -30,7 +31,7 @@ const Admin = () => {
     setFilteredData(res.data)
   }
   ).catch(err => console.error(err));
-  },[])
+  },[resetData])
 
 
   function handleSubmit(e) {
@@ -94,6 +95,15 @@ axios.post(`${serverUrl}/login-admin`, data, {
     function handleCloseModal(){
       setAddOrEditMode(null)
     }
+
+    function handleDelete(id){
+      console.log(id);
+      axios.post(`${serverUrl}/delete/${id}`).then((res)=>{
+        console.log(res.data);
+        setResetData(!resetData)
+      })
+      
+    }
   return (
     <div className='Admin'>
       {/* Simple log in form for admin: */}
@@ -119,12 +129,14 @@ axios.post(`${serverUrl}/login-admin`, data, {
           return(
             <div className='company'>
               <p>{company.companyName}</p>
-              <div className='info'><img src='/assets/mdi_auto-towing.png' height={"25px"}></img> {company.towingServiceNumber} <button onClick={(e) => handleAddOrEdit(e,company)} name='edit' value={company}>Edit</button></div>
+              <p>{company.policyNumber}</p>
+              
+              <div className='info'><img src='/assets/mdi_auto-towing.png' height={"25px"}></img> {company.towingServiceNumber} <button onClick={(e)=>{handleDelete(company.id)}} >Delete</button> <button onClick={(e) => handleAddOrEdit(e,company)} name='edit' value={company}>Edit</button></div>
             </div>
           )
         })}
 
-        {addOrEditMode && <AddOrEdit mode={addOrEditMode} company={selectedCompany} onClick={handleCloseModal}/>}
+        {addOrEditMode && <AddOrEdit mode={addOrEditMode} company={selectedCompany} onClick={handleCloseModal} onSucces={(e) =>{setResetData("")}}/>}
 
       </div>
       </>
