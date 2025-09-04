@@ -79,10 +79,12 @@ useEffect(() => {
 
   function handleAboutButton() {
     handlePageChange('about-us');
+    renderPage(activePage)
   }
 
   function handleContactButton(){
     handlePageChange('contact-us');
+    renderPage(activePage)
   }
 
   function renderPage(page) {
@@ -113,7 +115,7 @@ useEffect(() => {
           <>
           <LoadingScreen />
           {loading && <LoadingScreen />}
-          <Navbar onClick={handlePageChange} />
+          <Navbar activePage={activePage} onClick={handlePageChange} />
           {renderPage(activePage)}
           </> }
 
@@ -129,7 +131,7 @@ useEffect(() => {
       </> : <>
               <LoadingScreen />
           {loading && <LoadingScreen />}
-          <Navbar onClick={handlePageChange} />
+          <Navbar activePage={activePage} onClick={handlePageChange} />
           {renderPage(activePage)}
       </>}
 

@@ -142,7 +142,7 @@ const Claims = () => {
         <>
           <img src={"/assets/black_logo_with_text.png"} alt="Claims" width={"100px"} className='logo' />
           <h1>{company.companyName}</h1>
-          <p>{company.policyNumber}</p>
+          <p className='policy-header'>Policy number : {company.policyNumber}</p>
           <h3>What to do if you have a motor accident:</h3>
           <ul className='instructions'>
             <li><img src='assets/mdi_check-bold.png' alt="check" />Stop immediately and stay calm</li>

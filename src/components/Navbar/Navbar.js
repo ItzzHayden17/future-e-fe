@@ -1,33 +1,18 @@
 import './Navbar.css'
-import React, { use } from 'react'
-import { useState } from 'react'
+import React from 'react'
 
-const Navbar = (props) => {
-
-  const [activePage, setActivePage] = useState("home");
-
-  function handleClick(page) {
-    props.onClick(page);
-    setActivePage(page);
-  }
-
+const Navbar = ({ activePage, onClick }) => {
   return (
-    
-
     <div className='Navbar source-serif'>
       <div>
         <img src="/assets/white_e_logo.png" alt="Logo" className='logo' />
       </div>
       <div className='nav-links'>
-        {activePage === "home" ? <></> : <h1 onClick={() => handleClick("home")}>Home</h1>}
-        {activePage === "about-us" ? <></> : <h1 onClick={() => handleClick("about-us")}>About Us</h1>}
-        {activePage === "contact-us" ? <></> : <h1 onClick={() => handleClick("contact-us")}>Contact Us</h1>}
-        {activePage === "what-we-offer" ? <></> : <h1 onClick={() => handleClick("what-we-offer")}>What we offer</h1>}
-
-        
-        
-        <h1></h1>
-        </div>
+        {activePage === "home" ? null : <h1 onClick={() => onClick("home")}>Home</h1>}
+        {activePage === "about-us" ? null : <h1 onClick={() => onClick("about-us")}>About Us</h1>}
+        {activePage === "contact-us" ? null : <h1 onClick={() => onClick("contact-us")}>Contact Us</h1>}
+        {activePage === "what-we-offer" ? null : <h1 onClick={() => onClick("what-we-offer")}>What we offer</h1>}
+      </div>
     </div>
   )
 }
