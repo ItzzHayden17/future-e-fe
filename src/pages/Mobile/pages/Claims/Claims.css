@@ -112,7 +112,8 @@
     }
 
     .policy-header{
-         color: rgba(0, 0, 0, 0.371);
+        font-size: 25px;
+        font-weight: bold;
     }
 }
 

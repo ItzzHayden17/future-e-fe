@@ -14,6 +14,7 @@ const ContactForm = () => {
   })
 
   const [sentSucessfully,setSentSucessfully] = useState(false);
+  const [loading,setLoading] = useState(false)
 
 
   function handleChange(e) {
@@ -57,6 +58,7 @@ const ContactForm = () => {
   }
 
 if (isValid) {
+  setLoading(true)
   const formData = new URLSearchParams(new FormData(e.target));
 
   fetch(e.target.action, {
@@ -67,6 +69,7 @@ if (isValid) {
     .then(res => res.text())
     .then(data => {
       console.log('Form submitted successfully:', data);
+      setLoading(false)
       setSentSucessfully(true);
     })
     .catch(err => console.error(err));
@@ -76,6 +79,10 @@ if (isValid) {
 
   return (
     <div className='ContactForm'>
+      {loading ? <>
+      <div className='loader'><img src='assets/loading_icon.gif'></img></div>
+      </>:
+      <>
       {sentSucessfully && <div className='sent'> Thank you!</div> }
         <h1>Let us call you</h1>
         <form id="form" onSubmit={handleSubmit} method='POST' action={emailServer} >
@@ -94,6 +101,7 @@ if (isValid) {
             <p id="email" className='error-text'>Please enter your email address or cellphone number</p>
             <button >Call me back</button>
         </form>
+      </>}
       
     </div>
     

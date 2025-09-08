@@ -92,7 +92,7 @@ useEffect(() => {
       case 'home':
         return <Home handleAboutButton={handleAboutButton}  handleContactButton={handleContactButton}/> ;
       case 'about-us':
-        return <About />;
+        return <About handleContactButton={handleContactButton}/>;
       case 'contact-us':
         return <Contact />;
       case 'what-we-offer':

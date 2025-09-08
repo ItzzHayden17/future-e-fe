@@ -7,7 +7,8 @@ const Footer = () => {
     const year = date.getFullYear();
   return (
     <div className='Footer'>
-        `{year} Futur-e Insurance Brokers | All Rights Reserved`
+        <div>{year} Futur-e Insurance Brokers | All Rights Reserved </div>
+        <div>FSP : 16445</div>
     </div>
   )
 }

@@ -2,7 +2,7 @@ import './About.css'
 import Features from '../../components/Features/Features'
 import React from 'react'
 import TeamMember from '../../components/TeamMember/TeamMember'
-const About = () => {
+const About = (props) => {
   return (
     <div className='About'>
         <div className='about-futur-e'>
@@ -55,7 +55,7 @@ const About = () => {
             </p>
           </div>
         </div>
-        <button>Call me back</button>
+        <button className='primary' onClick={props.handleContactButton}>Call me Back</button> 
         <h1 className='team-header'>Meet the Team</h1>
         <div className='team'>
           <TeamMember img={"/assets/member.png"} name={"Belinda Mokoena"} />

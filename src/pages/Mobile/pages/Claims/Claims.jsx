@@ -72,13 +72,13 @@ const Claims = () => {
             <label>OWNER DETAILS (ONLY IF THE DRIVER IS NOT THE OWNER) – NAME, ADDRESS, PHONE NUMBER</label>
             <input placeholder="OWNER DETAILS" type="text" name="owner_details" />
 
-            <label>INSURANCE COMPANY(IES) – WITH WHICH THE OTHER VEHICLE(S) IS/ARE INSURED?</label>
+            <label>THIRD PARTY - INSURANCE COMPANY DETAILS</label>
             <input placeholder="INSURANCE COMPANY" type="text" name="insurance_company_of_other_driver" />
 
             <label>NAME AND CONTACT DETAILS OF ANY WITNESS(ES)</label>
             <input placeholder="Witness contact details" type="text" name="witness_contact_details" />
 
-            <label>NAME AND STATION OF THE POLICE/TRAFFIC OFFICER – IF PRESENT</label>
+            <label>SAPS DETAILS / CASE NUMBER</label>
             <input placeholder="Police officer details" type="text" name="police_officer_details" />
 
             <label>GIVE A SHORT DESCRIPTION OF THE ACCIDENT</label>
