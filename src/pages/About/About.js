@@ -1,6 +1,5 @@
 import './About.css'
 import Features from '../../components/Features/Features'
-import React from 'react'
 import TeamMember from '../../components/TeamMember/TeamMember'
 const About = (props) => {
   return (

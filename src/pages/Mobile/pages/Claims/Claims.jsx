@@ -11,6 +11,11 @@ const Claims = () => {
 
   const sigCanvas = useRef(null);
 
+  
+  let now = new Date();
+  let time = now.toLocaleTimeString();
+  let date = now.toLocaleDateString();
+
   useEffect(() => {
     const companyCookie = Cookies.get('isLoggedInWithCompany');
     if (companyCookie) setCompany(JSON.parse(companyCookie));
@@ -48,9 +53,26 @@ const Claims = () => {
     setClaim(!claim);
   }
 
-  let now = new Date();
-  let time = now.toLocaleTimeString();
-  let date = now.toLocaleDateString();
+
+
+  function submitClaim(e){
+    e.preventDefault()
+    const formData = new URLSearchParams(new FormData(e.target));
+    fetch(`${serverUrl}/claims`, {
+    method: "POST",
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: formData.toString()
+  })
+    .then(res => res.text())
+    .then(data => {
+      if (data == 200){
+        window.location.href = "/"
+        
+      }
+    })
+    .catch(err => console.error(err));
+    
+  }
   return (
     <div className='Claims'>
       <button className='logout' onClick={() => { Cookies.remove("isLoggedInWithCompany"); window.location.reload(); }}>Logout</button>
@@ -61,8 +83,7 @@ const Claims = () => {
           <h1>{company.companyName}</h1>
           <h3>Incident information</h3>
 
-          <form method="post" action={`${serverUrl}/claims`} onSubmit={(e)=>{console.log(e.target);
-          }}>
+          <form onSubmit={submitClaim}  >
 
             <label>DATE, TIME</label>
             <input  type="text" name="date_time" value={`${time} ${date}`}/>
