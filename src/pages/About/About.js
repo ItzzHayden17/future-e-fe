@@ -66,8 +66,8 @@ const About = (props) => {
           <div className='socials'>
             <a href='#'><img src='assets/facebook_icon.png'/></a>
             <a href='#'><img src='assets/instagram_icon.png'/></a>
-            <a href='tel:0814385555'><img src='assets/call_icon.png'/></a>
-            <a href='mailto:marjeting@futur-e.co.za' ><img src='assets/email_icon.png' className='email-icon'/></a>
+            <a href='tel:0129975575'><img src='assets/call_icon.png'/></a>
+            <a href='mailto:marketing@futur-e.co.za' ><img src='assets/email_icon.png' className='email-icon'/></a>
           </div>
     </div>
   )

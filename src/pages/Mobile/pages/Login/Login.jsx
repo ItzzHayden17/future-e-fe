@@ -43,7 +43,7 @@ const Login = () => {
   return (
     <div className="Login">
         <img src="assets/black_logo_with_text.png" alt="Login Logo" width={"150px"} />
-        <p>Claims portal</p>
+        <p>Claims Notification Portal</p>
         <form method="post" onSubmit={handleSubmit}>
         <label>Company name</label>
         <input placeholder="Enter your Company name" type="text" name="companyName" ></input>

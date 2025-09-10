@@ -8,7 +8,8 @@ const Footer = () => {
   return (
     <div className='Footer'>
         <div>{year} Futur-e Insurance Brokers | All Rights Reserved </div>
-        <div>FSP : 16445</div>
+        <div>Member of FIA</div>   
+        <div>FSP License Number:16445</div>
     </div>
   )
 }

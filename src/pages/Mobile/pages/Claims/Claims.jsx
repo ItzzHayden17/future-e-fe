@@ -48,6 +48,9 @@ const Claims = () => {
     setClaim(!claim);
   }
 
+  let now = new Date();
+  let time = now.toLocaleTimeString();
+  let date = now.toLocaleDateString();
   return (
     <div className='Claims'>
       <button className='logout' onClick={() => { Cookies.remove("isLoggedInWithCompany"); window.location.reload(); }}>Logout</button>
@@ -58,10 +61,14 @@ const Claims = () => {
           <h1>{company.companyName}</h1>
           <h3>Incident information</h3>
 
-          <form method="post" action={`${serverUrl}/claims`}>
+          <form method="post" action={`${serverUrl}/claims`} onSubmit={(e)=>{console.log(e.target);
+          }}>
 
-            <label>DATE, TIME, AND PLACE OF ACCIDENT</label>
-            <input placeholder="2025/04/01,12:00,Silverton Pretoria" type="text" name="date_time_place" />
+            <label>DATE, TIME</label>
+            <input  type="text" name="date_time" value={`${time} ${date}`}/>
+
+            <label>PLACE OF ACCIDENT</label>
+            <input  type="text" placeholder='PLACE OF ACCIDENT' name="place" />
 
             <label>OTHER VEHICLE(S) DETAILS – MAKE(S), COLOUR(S) AND REGISTRATION NUMBER(S)</label>
             <input placeholder="OTHER VEHICLE(S) DETAILS" type="text" name="desc_other_vehicle" />

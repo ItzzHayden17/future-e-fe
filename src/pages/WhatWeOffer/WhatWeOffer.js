@@ -38,7 +38,7 @@ const WhatWeOffer = () => {
         </h1>
         <p>
             •	Research on and provide updated values if and where available, with consent from policyholders.<br/>
-            •	Conduct post-loss surveys and make risk improvement recommendations.<br/>
+            •	Conduct pre-loss surveys and make risk improvement recommendations.<br/>
             •	Aiding with contact information for building valuation specialists and arranging meetings for our clients.<br/>
             •	Enabling meetings for the client with specialist valuators to establish appropriate values on buildings and high-tech equipment, and other valuables.<br/>
             •	Looking up suppliers and repairers on behalf of clients to assist with the valuation of goods to be insured where this is not provided for by an Insurer.<br/>
@@ -50,8 +50,8 @@ const WhatWeOffer = () => {
                  <div className='socials'>
             <a href='#'><img src='assets/facebook_icon.png'/></a>
             <a href='#'><img src='assets/instagram_icon.png'/></a>
-            <a href='tel:0814385555'><img src='assets/call_icon.png'/></a>
-            <a href='mailto:marjeting@futur-e.co.za' ><img src='assets/email_icon.png' className='email-icon'/></a>
+            <a href='tel:0129975575'><img src='assets/call_icon.png'/></a>
+            <a href='mailto:marketing@futur-e.co.za' ><img src='assets/email_icon.png' className='email-icon'/></a>
           </div>
     </div>
   )
