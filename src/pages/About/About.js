@@ -8,7 +8,7 @@ const About = (props) => {
         <div className='about-futur-e'>
             <img src='assets/black_logo_with_text.png'></img>
             <div className='about-text'>
-                <h1>About Futur-e</h1>
+                <h1>About Futur-E</h1>
                 <p>
                   Founded in 2001, Futur-E Insurance Brokers has grown into a trusted name in the short-term insurance industry. Part of Futur-e Insurance Brokers’ success comes from our dedicated and loyal staff, many of whom have been with the company for a number of years. Their commitment ensures consistency, personal service, and long-term client relationships.We have also built strong, longstanding partnerships with leading insurers in the marketplace, allowing us to offer clients reliable and competitive insurance solutions.Our head office is based in Pretoria East, but our services extend far beyond—we proudly serve clients nationwide across South Africa.
                 <h3>Our Strengths</h3><br/>
