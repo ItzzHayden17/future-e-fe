@@ -33,7 +33,7 @@ const Home = (props) => {
           </div>
         </div>
         <div className='image-banner'>
-          <img src="assets/red_car.png"></img>
+          <img src="assets/vadim-2.jpg"></img>
         </div>
     </div>
   )

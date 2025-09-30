@@ -11,6 +11,7 @@ import axios from 'axios';
 import serverUrl from '../../serverUrl';
 import Mobile from '../Mobile/Mobile';
 import WhatWeOffer from '../WhatWeOffer/WhatWeOffer';
+import Documents from '../Documents/Documents';
 
 function HomeDirectory() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -97,6 +98,8 @@ useEffect(() => {
         return <Contact />;
       case 'what-we-offer':
         return <WhatWeOffer />; 
+        case 'documents':
+        return <Documents />; 
       default:
         return null;
     }

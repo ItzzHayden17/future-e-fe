@@ -12,6 +12,7 @@ const Navbar = ({ activePage, onClick }) => {
         {activePage === "about-us" ? null : <h1 onClick={() => onClick("about-us")}>About Us</h1>}
         {activePage === "contact-us" ? null : <h1 onClick={() => onClick("contact-us")}>Contact Us</h1>}
         {activePage === "what-we-offer" ? null : <h1 onClick={() => onClick("what-we-offer")}>What we offer</h1>}
+        {activePage === "documents" ? null : <h1 onClick={() => onClick("documents")}>Documents</h1>}
       </div>
     </div>
   )
