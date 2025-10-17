@@ -11,7 +11,7 @@ const Contact = () => {
           <ContactForm />
           <div className='contact-info'>
             <h1>Or get in touch with us.</h1>
-            <a href='tel:0814385555'><img src='assets/call_icon.png'/>0814385555</a>
+            <a href='tel:0129975575'><img src='assets/call_icon.png'/>0129975575</a>
             <a href='mailto:marketing@futur-e.co.za'><img src='assets/email_icon.png' className='email-icon'/>marketing@futur-e.co.za</a>
           </div>
 
