@@ -55,7 +55,7 @@ const About = (props) => {
           </div>
         </div>
         <button className='primary' onClick={props.handleContactButton}>Call me Back</button> 
-        <h1 className='team-header'>Meet the Team</h1>
+        {/* <h1 className='team-header'>Meet the Team</h1>
         <div className='team'>
           <TeamMember img={"/assets/member.png"} name={"Belinda Mokoena"} />
           <TeamMember img={"/assets/member.png"} name={"Belinda Mokoena"} />
@@ -67,7 +67,7 @@ const About = (props) => {
             <a href='#'><img src='assets/instagram_icon.png'/></a>
             <a href='tel:0129975575'><img src='assets/call_icon.png'/></a>
             <a href='mailto:marketing@futur-e.co.za' ><img src='assets/email_icon.png' className='email-icon'/></a>
-          </div>
+          </div> */}
     </div>
   )
 }
