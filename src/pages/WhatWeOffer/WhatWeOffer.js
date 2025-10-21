@@ -47,7 +47,7 @@ const WhatWeOffer = () => {
 
         </p>
        </div>
-                 <div className='socials'>
+             <div className='socials'>
             <a href='#'><img src='assets/facebook_icon.png'/></a>
             <a href='#'><img src='assets/instagram_icon.png'/></a>
             <a href='tel:0129975575'><img src='assets/call_icon.png'/></a>
