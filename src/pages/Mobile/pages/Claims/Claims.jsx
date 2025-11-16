@@ -8,10 +8,10 @@ const Claims = () => {
   const [claim, setClaim] = useState(false);
   const [company, setCompany] = useState("");
   const [imageURL, setImageURL] = useState(null);
+  const [selectedImages, setSelectedImages] = useState([]);
 
   const sigCanvas = useRef(null);
 
-  
   let now = new Date();
   let time = now.toLocaleTimeString();
   let date = now.toLocaleDateString();
@@ -21,7 +21,12 @@ const Claims = () => {
     if (companyCookie) setCompany(JSON.parse(companyCookie));
   }, []);
 
-  // Merge background image and signature sketch
+  // Handle multiple image files
+  function handleImageUpload(e) {
+    setSelectedImages([...e.target.files]);
+  }
+
+  // Merge background image and sketch signature
   function getMergedImage() {
     const canvas = document.createElement("canvas");
     canvas.width = 400;
@@ -29,22 +34,18 @@ const Claims = () => {
 
     const ctx = canvas.getContext("2d");
 
-    // Draw background image first
     const background = new Image();
     background.src = "/assets/accident-diagram.png";
     background.onload = () => {
       ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
-      // Draw signature/sketch on top
       const sketch = new Image();
       sketch.src = sigCanvas.current.toDataURL("image/png");
       sketch.onload = () => {
         ctx.drawImage(sketch, 0, 0, canvas.width, canvas.height);
 
-        // Get combined image as base64
         const combinedURL = canvas.toDataURL("image/png");
         setImageURL(combinedURL);
-        console.log("Merged image URL:", combinedURL);
       };
     };
   }
@@ -53,51 +54,72 @@ const Claims = () => {
     setClaim(!claim);
   }
 
+  // FINAL CLAIM SUBMISSION (MULTIPART FORM)
+  function submitClaim(e) {
+    e.preventDefault();
 
+    const formData = new FormData();
 
-  function submitClaim(e){
-    e.preventDefault()
-    const formData = new URLSearchParams(new FormData(e.target));
+    // Append text fields
+    formData.append("date_time", `${time} ${date}`);
+    formData.append("place", e.target.place.value);
+    formData.append("desc_other_vehicle", e.target.desc_other_vehicle.value);
+    formData.append("other_driver_details", e.target.other_driver_details.value);
+    formData.append("owner_details", e.target.owner_details.value);
+    formData.append("insurance_company_of_other_driver", e.target.insurance_company_of_other_driver.value);
+    formData.append("witness_contact_details", e.target.witness_contact_details.value);
+    formData.append("police_officer_details", e.target.police_officer_details.value);
+    formData.append("accident_description", e.target.accident_description.value);
+    formData.append("companyName", company.companyName);
+
+    // Append merged sketch (still base64)
+    if (imageURL) {
+      formData.append("accident_sketch", imageURL);
+    }
+
+    // Append multiple uploaded images
+    selectedImages.forEach((img) => {
+      formData.append("images", img);
+    });
+
     fetch(`${serverUrl}/claims`, {
-    method: "POST",
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: formData.toString()
-  })
-    .then(res => res.text())
-    .then(data => {
-      if (data == 200){
-        window.location.href = "/"
-        
-      }
+      method: "POST",
+      body: formData // multipart/form-data automatically
     })
-    .catch(err => console.error(err));
-    
+      .then(res => res.text())
+      .then(data => {
+        if (data == 200) {
+          window.location.href = "/";
+        }
+      })
+      .catch(err => console.error(err));
   }
+
   return (
     <div className='Claims'>
       <button className='logout' onClick={() => { Cookies.remove("isLoggedInWithCompany"); window.location.reload(); }}>Logout</button>
 
-      {claim ?
+      {claim ? (
         <>
           <img src={"/assets/black_logo_with_text.png"} alt="Claims" width={"100px"} className='logo' />
           <h1>{company.companyName}</h1>
           <h3>Incident information</h3>
 
-          <form onSubmit={submitClaim}  >
+          <form onSubmit={submitClaim}>
 
             <label>DATE, TIME</label>
-            <input  type="text" name="date_time" value={`${time} ${date}`}/>
+            <input type="text" name="date_time" value={`${time} ${date}`} readOnly />
 
             <label>PLACE OF ACCIDENT</label>
-            <input  type="text" placeholder='PLACE OF ACCIDENT' name="place" />
+            <input type="text" placeholder='PLACE OF ACCIDENT' name="place" />
 
-            <label>OTHER VEHICLE(S) DETAILS – MAKE(S), COLOUR(S) AND REGISTRATION NUMBER(S)</label>
+            <label>OTHER VEHICLE(S) DETAILS</label>
             <input placeholder="OTHER VEHICLE(S) DETAILS" type="text" name="desc_other_vehicle" />
 
-            <label>OTHER DRIVER(S) DETAILS – NAME(S), SURNAME(S), ADDRESS(ES), PHONE NUMBER(S),ID NUMBER(S)</label>
+            <label>OTHER DRIVER(S) DETAILS</label>
             <input placeholder="OTHER DRIVER(S) DETAILS" type="text" name="other_driver_details" />
 
-            <label>OWNER DETAILS (ONLY IF THE DRIVER IS NOT THE OWNER) – NAME, ADDRESS, PHONE NUMBER</label>
+            <label>OWNER DETAILS</label>
             <input placeholder="OWNER DETAILS" type="text" name="owner_details" />
 
             <label>THIRD PARTY - INSURANCE COMPANY DETAILS</label>
@@ -109,14 +131,15 @@ const Claims = () => {
             <label>SAPS DETAILS / CASE NUMBER</label>
             <input placeholder="Police officer details" type="text" name="police_officer_details" />
 
-            <label>GIVE A SHORT DESCRIPTION OF THE ACCIDENT</label>
+            <label>DESCRIPTION OF THE ACCIDENT</label>
             <input placeholder="Description" type="text" name="accident_description" />
 
-            <label>UPLOAD A SKETCH OF THE ACCIDENT (OPTIONAL)</label>
-            <input type="hidden" name="accident_sketch" value={imageURL || ""} />
+            <label>OPTIONAL EXTRA IMAGES (PHOTOS)</label>
+            <input type="file" name="images" multiple accept="image/*" onChange={handleImageUpload} />
+
+            <label>ACCIDENT SKETCH (OPTIONAL)</label>
 
             <div style={{ position: "relative", width: "100%", height: 250 }}>
-              {/* Background image */}
               <img
                 src="/assets/accident-diagram.png"
                 alt="background"
@@ -127,66 +150,46 @@ const Claims = () => {
                   top: 0,
                   left: 0,
                   zIndex: 0,
-                   objectFit: "cover"
+                  objectFit: "cover"
                 }}
               />
-
-              {/* Drawing canvas */}
               <SignatureCanvas
                 ref={sigCanvas}
                 penColor="red"
                 backgroundColor="transparent"
                 canvasProps={{
                   height: 250,
-                  width:"fit-content",
+                  width: "100%",
                   style: {
                     position: "absolute",
                     top: 0,
                     left: 0,
                     zIndex: 1,
-                    height:250
                   },
                 }}
-                onEnd={getMergedImage} // merge sketch with background
+                onEnd={getMergedImage}
               />
             </div>
-            <button
-              type="button"
-              onClick={() => {
-                sigCanvas.current.clear();
-                setImageURL(null); // reset merged image too
-              }}
-            >
+
+            <button type="button" onClick={() => { sigCanvas.current.clear(); setImageURL(null); }}>
               Reset Sketch
             </button>
 
             <button type="button" onClick={handleSubmitForm}>Cancel</button>
             <button type="submit">Submit</button>
-            <input type="hidden" name="companyName" value={company.companyName} />
-            <input type="hidden" name="companyName" value={company.policyNumber} />
           </form>
         </>
-        :
+      ) : (
         <>
           <img src={"/assets/black_logo_with_text.png"} alt="Claims" width={"100px"} className='logo' />
           <h1>{company.companyName}</h1>
           <p className='policy-header'>Policy number : {company.policyNumber}</p>
-          <h3>What to do if you have a motor accident:</h3>
-          <ul className='instructions'>
-            <li><img src='assets/mdi_check-bold.png' alt="check" />Stop immediately and stay calm</li>
-            <li><img src='assets/icomoon-free_cross.png' alt="cross" />Do not admit or accept liability</li>
-          </ul>
-
-          <a href={`tel:${company.towingServiceNumber}`} >
-            <img src='assets/mdi_auto-towing-black.png' alt="towing" />
-            <p>{company.towingServiceNumber}</p>
-          </a>
 
           <button onClick={handleSubmitForm}>Submit a Notification</button>
         </>
-      }
+      )}
     </div>
   );
-}
+};
 
 export default Claims;

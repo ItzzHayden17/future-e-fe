@@ -16,7 +16,7 @@ import Documents from '../Documents/Documents';
 function HomeDirectory() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [underConstruction,setUnderConstruction] = useState();
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(true);
 
   useEffect(() => {
     axios.get(`${serverUrl}/under-construction`).then(response => {
@@ -51,7 +51,7 @@ useEffect(() => {
     ) {
       setIsMobile(true);
     } else {
-      setIsMobile(false);
+      setIsMobile(true);
     }
   }
 
