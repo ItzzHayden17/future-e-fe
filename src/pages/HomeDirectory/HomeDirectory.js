@@ -51,7 +51,7 @@ useEffect(() => {
     ) {
       setIsMobile(true);
     } else {
-      setIsMobile(true);
+      setIsMobile(false);
     }
   }
 
