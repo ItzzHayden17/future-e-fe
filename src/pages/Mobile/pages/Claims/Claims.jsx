@@ -137,9 +137,9 @@ const Claims = () => {
             <label>OPTIONAL EXTRA IMAGES (PHOTOS)</label>
             <input type="file" name="images" multiple accept="image/*" onChange={handleImageUpload} />
 
-            <label>ACCIDENT SKETCH (OPTIONAL)</label>
+            {/* <label>ACCIDENT SKETCH (OPTIONAL)</label> */}
 
-            <div style={{ position: "relative", width: "100%", height: 250 }}>
+            {/* <div style={{ position: "relative", width: "100%", height: 250 }}>
               <img
                 src="/assets/accident-diagram.png"
                 alt="background"
@@ -169,11 +169,11 @@ const Claims = () => {
                 }}
                 onEnd={getMergedImage}
               />
-            </div>
+            </div> */}
 
-            <button type="button" onClick={() => { sigCanvas.current.clear(); setImageURL(null); }}>
+            {/* <button type="button" onClick={() => { sigCanvas.current.clear(); setImageURL(null); }}>
               Reset Sketch
-            </button>
+            </button> */}
 
             <button type="button" onClick={handleSubmitForm}>Cancel</button>
             <button type="submit">Submit</button>
@@ -184,7 +184,7 @@ const Claims = () => {
           <img src={"/assets/black_logo_with_text.png"} alt="Claims" width={"100px"} className='logo' />
           <h1>{company.companyName}</h1>
           <p className='policy-header'>Policy number : {company.policyNumber}</p>
-
+          <a href={company.claimFormUrl} className='download-claim-form' download={`ClaimForm_${company.companyName}.pdf`} >Download claim form</a>
           <button onClick={handleSubmitForm}>Submit a Notification</button>
         </>
       )}

@@ -115,6 +115,18 @@
         font-size: 25px;
         font-weight: bold;
     }
+
+    .download-claim-form{
+        margin-top: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        padding: 5px 15px;
+    }
+
+    .download-claim-form:hover{
+        background-color: black;
+        color: white;
+    }
 }
 
 
