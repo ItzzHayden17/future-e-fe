@@ -3,12 +3,14 @@ import './Claims.css';
 import serverUrl from "../../../../serverUrl";
 import Cookies from 'js-cookie';
 import SignatureCanvas from "react-signature-canvas";
+import LoadingSpinner from '../../../../components/LoadingSpinner/LoadingSpinner';
 
 const Claims = () => {
   const [claim, setClaim] = useState(false);
   const [company, setCompany] = useState("");
   const [imageURL, setImageURL] = useState(null);
   const [selectedImages, setSelectedImages] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const sigCanvas = useRef(null);
 
@@ -57,6 +59,7 @@ const Claims = () => {
   // FINAL CLAIM SUBMISSION (MULTIPART FORM)
   function submitClaim(e) {
     e.preventDefault();
+    setLoading(true);
 
     const formData = new FormData();
 
@@ -73,9 +76,9 @@ const Claims = () => {
     formData.append("companyName", company.companyName);
 
     // Append merged sketch (still base64)
-    if (imageURL) {
-      formData.append("accident_sketch", imageURL);
-    }
+    // if (imageURL) {
+    //   formData.append("accident_sketch", imageURL);
+    // }
 
     // Append multiple uploaded images
     selectedImages.forEach((img) => {
@@ -90,13 +93,20 @@ const Claims = () => {
       .then(data => {
         if (data == 200) {
           window.location.href = "/";
+        } else {
+          alert("Error submitting claim, please try again.");
+          setLoading(false);
         }
       })
-      .catch(err => console.error(err));
+      .catch(err => {
+        alert("Error submitting claim, please try again.");
+        setLoading(false);
+      });
   }
 
   return (
     <div className='Claims'>
+      {loading && <LoadingSpinner/>}
       <button className='logout' onClick={() => { Cookies.remove("isLoggedInWithCompany"); window.location.reload(); }}>Logout</button>
 
       {claim ? (

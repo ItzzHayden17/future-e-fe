@@ -3,11 +3,16 @@ import React from 'react'
 import serverUrl from "../../../../serverUrl"
 import axios from "axios";
 import Cookies from 'js-cookie';
+import LoadingSpinner from '../../../../components/LoadingSpinner/LoadingSpinner';
+
 
 const Login = () => {
 
+  const [loading,setLoading] = React.useState(false)
+
   function handleSubmit(e) {
     e.preventDefault();
+    setLoading(true)
 
     const formData = new FormData(e.target); // grabs data from the form that triggered submit
 
@@ -33,6 +38,7 @@ const Login = () => {
         
       } else {
         alert('Login failed');
+        setLoading(false)
       }
     })
     .catch(err => {
@@ -42,6 +48,7 @@ const Login = () => {
 
   return (
     <div className="Login">
+      {loading && <LoadingSpinner/>}
         <img src="assets/black_logo_with_text.png" alt="Login Logo" width={"150px"} />
         <p>Claims Notification Portal</p>
         <form method="post" onSubmit={handleSubmit}>

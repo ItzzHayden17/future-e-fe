@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import "./AddOrEdit.css";
 import serverUrl from "../../serverUrl";
 import axios from "axios";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 const AddOrEdit = (props) => {
   const [company, setCompany] = useState(props.company);
+  const [loading,setLoading] = useState(false)
 
   function handleCloseModal(e) {
     props.onClick(e);
@@ -23,6 +25,7 @@ const AddOrEdit = (props) => {
   // ---------------------------
   return (
     <div className="AddOrEdit">
+      {loading && <LoadingSpinner/>}
       <div className="form">
         <p onClick={handleCloseModal}>X</p>
 
@@ -35,13 +38,17 @@ const AddOrEdit = (props) => {
               onSubmit={(e) => {
                 e.preventDefault();
                 const formData = new FormData(e.target); // IMPORTANT
+                setLoading(true)
 
                 axios
                   .post(`${serverUrl}/add-company`, formData, {
                     headers: { "Content-Type": "multipart/form-data" },
                   })
                   .then(() => window.location.reload())
-                  .catch((err) => console.error(err));
+                  .catch((err) => {
+                        alert("Error adding company, please try again.");
+                        setLoading(false);
+                  });
               }}
             >
               <label>Company name</label>

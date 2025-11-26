@@ -4,6 +4,8 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import serverUrl from '../../serverUrl'
 import AddOrEdit from '../../components/AddOrEdit/AddOrEdit'
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner'
+
 
 const Admin = () => {
 
@@ -14,6 +16,7 @@ const Admin = () => {
   const [selectedCompany,setSelectedCompany] = useState(null)
   const [addOrEditMode,setAddOrEditMode] = useState(null) //null , add , edit
   const [resetData,setResetData] = useState(false)
+  const [loading,setLoading] = useState(false)
 
   useEffect(()=>{
    const admin = Cookies.get("isLoggedIn")
@@ -97,15 +100,21 @@ axios.post(`${serverUrl}/login-admin`, data, {
     }
 
     function handleDelete(id){
+      setLoading(true)
       console.log(id);
       axios.post(`${serverUrl}/delete/${id}`).then((res)=>{
         console.log(res.data);
         setResetData(!resetData)
+        setLoading(false)
+      }).catch((err)=>{
+        alert("Error deleting company, please try again.")
+        setLoading(false)
       })
       
     }
   return (
     <div className='Admin'>
+      {loading && <LoadingSpinner/>}
       {/* Simple log in form for admin: */}
 
       {admin ? 
