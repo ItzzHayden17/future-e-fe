@@ -195,6 +195,7 @@ const Claims = () => {
           <h1>{company.companyName}</h1>
           <p className='policy-header'>Policy number : {company.policyNumber}</p>
           <a href={company.claimFormUrl} className='download-claim-form' download={`ClaimForm_${company.companyName}.pdf`} >Download claim form</a>
+          <a href={"tel:" + company.towingServiceNumber} className='download-claim-form' ><img src='assets/mdi_auto-towing-black.png'></img> {company.towingServiceNumber}</a>
           <button onClick={handleSubmitForm}>Submit a Notification</button>
         </>
       )}
