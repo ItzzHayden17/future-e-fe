@@ -5,8 +5,8 @@ import axios from "axios";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 const AddOrEdit = (props) => {
-  const [company, setCompany] = useState(props.company);
-  const [loading,setLoading] = useState(false)
+  const [company, setCompany] = useState(props.company || {});
+  const [loading, setLoading] = useState(false);
 
   function handleCloseModal(e) {
     props.onClick(e);
@@ -20,12 +20,20 @@ const AddOrEdit = (props) => {
     }));
   }
 
-  // ---------------------------
-  // RENDER
-  // ---------------------------
+  // Helper to convert FormData to object & remove empty/undefined fields
+  const formDataToObject = (formData) => {
+    const obj = {};
+    formData.forEach((value, key) => {
+      if (value !== undefined && value !== "" && value !== null) {
+        obj[key] = value;
+      }
+    });
+    return obj;
+  };
+
   return (
     <div className="AddOrEdit">
-      {loading && <LoadingSpinner/>}
+      {loading && <LoadingSpinner />}
       <div className="form">
         <p onClick={handleCloseModal}>X</p>
 
@@ -35,20 +43,22 @@ const AddOrEdit = (props) => {
             <h1>Add a Company</h1>
 
             <form
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
-                const formData = new FormData(e.target); // IMPORTANT
-                setLoading(true)
+                setLoading(true);
 
-                axios
-                  .post(`${serverUrl}/add-company`, formData, {
+                const formData = new FormData(e.target);
+
+                try {
+                  await axios.post(`${serverUrl}/add-company`, formData, {
                     headers: { "Content-Type": "multipart/form-data" },
-                  })
-                  .then(() => window.location.reload())
-                  .catch((err) => {
-                        alert("Error adding company, please try again.");
-                        setLoading(false);
                   });
+                  window.location.reload();
+                } catch (err) {
+                  console.error(err);
+                  alert("Error adding company, please try again.");
+                  setLoading(false);
+                }
               }}
             >
               <label>Company name</label>
@@ -58,10 +68,10 @@ const AddOrEdit = (props) => {
               <input placeholder="Password" name="password" type="password" />
 
               <label>Confirm Password</label>
-              <input placeholder="Confirm Password" type="password" />
+              <input placeholder="Confirm Password" name="confirmPassword" type="password" />
 
               <label>Towing service number</label>
-              <input placeholder="Number" type="number" name="towingNumber" />
+              <input placeholder="Number" type="number" name="towingServiceNumber" />
 
               <label>Policy number</label>
               <input placeholder="Policy number" type="text" name="policyNumber" />
@@ -80,19 +90,26 @@ const AddOrEdit = (props) => {
             <h1>Edit Company</h1>
 
             <form
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
-                const formData = new FormData(e.target);
+                setLoading(true);
 
-                axios
-                  .post(`${serverUrl}/edit-company`, formData, {
+                const formData = new FormData(e.target);
+                const data = formDataToObject(formData);
+
+                try {
+                  await axios.post(`${serverUrl}/edit-company`, data, {
                     headers: { "Content-Type": "multipart/form-data" },
-                  })
-                  .then(() => window.location.reload())
-                  .catch((err) => console.error(err));
+                  });
+                  window.location.reload();
+                } catch (err) {
+                  console.error(err);
+                  alert("Error saving changes, please try again.");
+                  setLoading(false);
+                }
               }}
             >
-              <input type="hidden" name="id" value={company.id} />
+              <input type="hidden" name="id" value={company.id || ""} />
 
               <label>Company name</label>
               <input
@@ -121,7 +138,7 @@ const AddOrEdit = (props) => {
 
               <label>Towing service number</label>
               <input
-                name="towingNumber"
+                name="towingServiceNumber"
                 placeholder="Towing service number"
                 value={company.towingServiceNumber || ""}
                 onChange={handleChange}
@@ -134,7 +151,18 @@ const AddOrEdit = (props) => {
                 value={company.policyNumber || ""}
                 onChange={handleChange}
               />
-              <h6>Current claim form: {company.claimFormUrl ? (<a href={company.claimFormUrl} target="_blank" rel="noopener noreferrer">View Document</a>) : ("No document uploaded")}</h6>
+
+              <h6>
+                Current claim form:{" "}
+                {company.claimFormUrl ? (
+                  <a href={company.claimFormUrl} target="_blank" rel="noopener noreferrer">
+                    View Document
+                  </a>
+                ) : (
+                  "No document uploaded"
+                )}
+              </h6>
+
               <label>Claim form (upload new)</label>
               <input type="file" name="file" />
 
