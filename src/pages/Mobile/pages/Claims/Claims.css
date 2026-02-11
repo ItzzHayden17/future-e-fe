@@ -45,11 +45,6 @@
 
     ol{
 
-       li{
-        font-size: 20px;
-        font-style: italic;
-        font-weight: bold;
-       }
     }
 
     button{
@@ -60,6 +55,9 @@
         background-color: black;
         color: white;
         font-size: 18px;
+                font-size: 18px;
+        font-weight: bold;
+        padding: 5px 15px;
 
     }
 
@@ -106,17 +104,32 @@
         font-weight: bold;
     }
 
-    .download-claim-form{
+.buttons{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 250px;
+
+        .download-claim-form{
         margin-top: 10px;
         font-size: 18px;
         font-weight: bold;
         padding: 5px 15px;
+        width: 100%;
     }
 
     .download-claim-form:hover{
         background-color: black;
         color: white;
     }
+
+    button{
+        width: 100%;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 5px 15px;
+    }
+}
 }
 
 

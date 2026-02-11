@@ -194,13 +194,15 @@ const Claims = () => {
           <img src={"/assets/black_logo_with_text.png"} alt="Claims" width={"100px"} className='logo' />
           <h1>{company.companyName}</h1>
           <p className='policy-header'>Policy number : {company.policyNumber}</p>
-          <ol>
+          <ol className='policy-header'>
             <li>Stay calm.</li>
             <li>Do not claim responsibility.</li>
           </ol>
-          <a href={company.claimFormUrl} className='download-claim-form' download={`ClaimForm_${company.companyName}.pdf`} >Download claim form</a>
-          <a href={"tel:" + company.towingServiceNumber} className='download-claim-form' ><img src='assets/mdi_auto-towing-black.png'></img> {company.towingServiceNumber}</a>
-          <button onClick={handleSubmitForm}>Submit a Notification</button>
+          <div className='buttons'>
+            <a href={company.claimFormUrl} className='download-claim-form' download={`ClaimForm_${company.companyName}.pdf`} >Download claim form</a>
+            <a href={"tel:" + company.towingServiceNumber} className='download-claim-form' ><img src='assets/mdi_auto-towing-black.png'></img> {company.towingServiceNumber}</a>
+            <button onClick={handleSubmitForm}>Submit a Notification</button>
+          </div>
         </>
       )}
     </div>
