@@ -5,14 +5,15 @@ const Documents = () => {
   return (
     <div>
         <div className='Documents'>
-        <a href='assets/documents/ComplaintsPolicy.pdf' download={"ComplaintsPolicy.pdf"}> Complaints Policy</a>
+        {/* <a href='assets/documents/ComplaintsPolicy.pdf' download={"ComplaintsPolicy.pdf"}> Complaints Policy</a>
         <a href='assets/documents/PAIAFORM-3Outcomeofrequestandfeespayable.pdf' download={"PAIAFORM-3Outcomeofrequestandfeespayable.pdf"}> Outcome Of Request And Fees Payable</a>
         <a href='assets/documents/PAIAFORM1-Requestforcopyofguide.pdf' download={"PAIAFORM1-Requestforcopyofguide.pdf"}> PAIA form 1 - Request For Copy Of Guide</a>
         <a href='assets/documents/PAIAFORM2-Requestforaccesstorecord.pdf' download={"PAIAFORM2-Requestforaccesstorecord.pdf"}>PAIA form 2 - Request For Access To Record</a>
                 <a href='assets/documents/PAIA FORM - 3 Outcome of request and fees payable.pdf' download={"PAIA FORM - 3 Outcome of request and fees payable.pdf"}>PAIA FORM - 3 Outcome of request and fees payable</a>
         <a href='assets/documents/GeneralWebsiteTermsOfService.pdf' download={"GeneralWebsiteTermsOfService.pdf"}> General Website Terms Of Service</a>
         <a href='assets/documents/POPI.pdf' download={"POPI.pdf"}> POPI</a>
-        <a href='assets/documents/WebsiteDisclaimer.pdf' download={"WebsiteDisclaimer.pdf"}> Website Disclaimer</a>
+        <a href='assets/documents/WebsiteDisclaimer.pdf' download={"WebsiteDisclaimer.pdf"}> Website Disclaimer</a> */}
+        <a href='assets/documents/Promotion of Access to Information 2026 - PAIA Manual.pdf' download={"Promotion of Access to Information 2026 - PAIA Manual.pdf"}> PAIA Manual</a> 
     
     </div>
       <div className='policy-note'>
